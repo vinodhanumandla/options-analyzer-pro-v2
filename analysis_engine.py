@@ -195,8 +195,13 @@ def fetch_ohlcv_yf(fyers_sym, interval="5m", period="5d"):
     """Fetch OHLCV for a Fyers symbol using yfinance (NSE suffix) with fallbacks."""
     try:
         import yfinance as yf
+        from curl_cffi import requests as c_requests
+        
+        # Use curl_cffi session to bypass Yahoo bot block
+        session = c_requests.Session(impersonate="chrome110")
+        
         yf_sym = fyers_to_yf(fyers_sym)
-        ticker = yf.Ticker(yf_sym)
+        ticker = yf.Ticker(yf_sym, session=session)
         
         # Try primary period
         df = ticker.history(period=period, interval=interval, auto_adjust=True)
