@@ -333,7 +333,7 @@ def _run_zone_scan():
     supply_list.sort(key=lambda x: x["move_pct"], reverse=True)
 
     from datetime import datetime
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M")
+    ts = pd.Timestamp.now(tz="Asia/Kolkata").strftime("%Y-%m-%d %H:%M")
 
     with _zone_lock:
         _zone_cache["demand"]    = demand_list[:TOP_N]
@@ -478,7 +478,7 @@ def _run_orb_scan():
     orb15m_list.sort(key=lambda x: abs(x["diff"]), reverse=True)
 
     from datetime import datetime
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M")
+    ts = pd.Timestamp.now(tz="Asia/Kolkata").strftime("%Y-%m-%d %H:%M")
 
     with _orb_lock:
         _orb_cache["orb5m"]     = orb5m_list
@@ -622,7 +622,7 @@ def _run_doji_scan():
                 _doji_cache["done"] = i + 1
 
     from datetime import datetime
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M")
+    ts = pd.Timestamp.now(tz="Asia/Kolkata").strftime("%Y-%m-%d %H:%M")
 
     with _doji_lock:
         _doji_cache["doji5m"]    = doji5m_list
@@ -793,7 +793,7 @@ def _run_cpr_scan():
     cpr_list.sort(key=lambda x: (-x["score"], x["width_pct"]))
 
     from datetime import datetime
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M")
+    ts = pd.Timestamp.now(tz="Asia/Kolkata").strftime("%Y-%m-%d %H:%M")
 
     with _cpr_lock:
         _cpr_cache["stocks"]    = cpr_list
@@ -1307,7 +1307,7 @@ def _run_reversal_scan():
         results["bearish"] = results["bearish"][:20]
 
     from datetime import datetime
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M")
+    ts = pd.Timestamp.now(tz="Asia/Kolkata").strftime("%Y-%m-%d %H:%M")
 
     with _reversal_lock:
         _reversal_cache["rev5m"]     = results_5m

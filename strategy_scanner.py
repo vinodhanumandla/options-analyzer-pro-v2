@@ -255,7 +255,7 @@ def _run_strategy_scan():
                 if sig:
                     sig['timestamp'] = time.time()
                     from datetime import datetime
-                    sig['time_str'] = datetime.now().strftime("%H:%M:%S")
+                    sig['time_str'] = pd.Timestamp.now(tz="Asia/Kolkata").strftime("%H:%M:%S")
                     found_signals.append(sig)
                     break # Don't record multiple signals for same stock in diff timeframes
             except Exception as e:
@@ -265,7 +265,7 @@ def _run_strategy_scan():
             _strategy_cache['done'] = i + 1
             
     from datetime import datetime
-    ts = datetime.now().strftime("%Y-%m-%d %H:%M")
+    ts = pd.Timestamp.now(tz="Asia/Kolkata").strftime("%Y-%m-%d %H:%M")
     
     with _scanner_lock:
         # Merge newly found signals into historical day cache
