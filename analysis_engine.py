@@ -297,7 +297,7 @@ def _run_zone_scan():
     def process_sym(sym, idx):
         try:
             # Spread requests to avoid burst rate limiting
-            time.sleep(random.uniform(0.5, 2.0))
+            time.sleep(random.uniform(0.05, 0.2))
             df = fetch_ohlcv_smart(sym, interval=INTERVAL, period_days=5)
             if df is not None:
                 d, s = detect_zones(df)
@@ -445,7 +445,7 @@ def _run_orb_scan():
     def process_sym(sym):
         try:
             # Spread requests
-            time.sleep(random.uniform(0.1, 1.0))
+            time.sleep(random.uniform(0.01, 0.05))
             df = fetch_today_1m_yf(sym)
             if df is not None:
                 r5, r15 = calculate_orb(df)
@@ -593,7 +593,7 @@ def _run_doji_scan():
     def process_sym(sym):
         try:
             # Spread requests
-            time.sleep(random.uniform(0.1, 1.0))
+            time.sleep(random.uniform(0.01, 0.05))
             df = fetch_today_1m_yf(sym)
             if df is not None:
                 r5, r15 = calculate_doji(df)
@@ -711,7 +711,7 @@ def _run_cpr_scan():
     def process_sym(sym):
         try:
             # Spread requests
-            time.sleep(random.uniform(0.2, 1.5))
+            time.sleep(random.uniform(0.05, 0.2))
             # Fetch daily data for the last few days
             df = fetch_ohlcv_smart(sym, interval="1d", period_days=5)
             if df is not None and len(df) >= 2:
@@ -1236,7 +1236,7 @@ def _run_reversal_scan():
     def process_sym(sym):
         try:
             # Spread requests to avoid rate limits
-            time.sleep(random.uniform(0.1, 0.4))
+            time.sleep(random.uniform(0.02, 0.1))
             
             # Fetch 5m data once
             df_5m = fetch_ohlcv_smart(sym, interval="5m", period_days=5)

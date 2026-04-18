@@ -87,14 +87,22 @@ try:
     )
     from strategy_scanner import start_strategy_scanner
     from results_data import refresh_upcoming_dates
-    start_zone_scanner()
-    start_orb_scanner()
-    start_doji_scanner()
-    start_cpr_scanner()
-    start_reversal_scanner()
-    start_strategy_scanner()
-    # Initial results refresh
-    refresh_upcoming_dates()
+    def _startup_scanners():
+        start_zone_scanner()
+        time.sleep(2)
+        start_orb_scanner()
+        time.sleep(2)
+        start_doji_scanner()
+        time.sleep(2)
+        start_cpr_scanner()
+        time.sleep(2)
+        start_reversal_scanner()
+        time.sleep(2)
+        start_strategy_scanner()
+        # Initial results refresh
+        threading.Thread(target=refresh_upcoming_dates, daemon=True).start()
+    
+    threading.Thread(target=_startup_scanners, daemon=True).start()
 except Exception as _ze:
     print(f"[App] Scanner startup error: {_ze}")
 
