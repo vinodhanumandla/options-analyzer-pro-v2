@@ -9,7 +9,7 @@ yfinance==0.2.38
 beautifulsoup4==4.12.3
 typing-extensions==4.9.0
 gunicorn==21.2.0
-waitress==3.0.0
 firebase-admin==6.4.0
 fyers-apiv3
 lxml
+curl_cffi==0.7.4

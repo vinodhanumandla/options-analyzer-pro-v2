@@ -6,7 +6,6 @@ from flask import Flask, render_template, request, jsonify, session, redirect, u
 from flask_compress import Compress
 from werkzeug.exceptions import HTTPException
 from dotenv import load_dotenv
-import waitress
 
 load_dotenv()
 
@@ -325,11 +324,10 @@ def api_sector_stocks(sector_name):
 
 if __name__ == "__main__":
     import webbrowser
+    port = int(os.environ.get("PORT", 5001))
     print("=======================================================")
-    print("  Options Analyzer Pro - PRODUCTION SCALING MODE")
-    print("  Engine: Waitress (Multi-threaded WSGI)")
-    print("  Compression: Gzip Enabled")
-    print("  Open browser: http://localhost:5001")
+    print(f"  Options Analyzer Pro - LOCAL DEV MODE")
+    print(f"  Open browser: http://localhost:{port}")
     print("=======================================================")
-    threading.Timer(1.5, lambda: webbrowser.open_new_tab("http://localhost:5001")).start()
-    waitress.serve(app, host="0.0.0.0", port=5001, threads=100)
+    threading.Timer(1.5, lambda: webbrowser.open_new_tab(f"http://localhost:{port}")).start()
+    app.run(host="0.0.0.0", port=port, threaded=True)
