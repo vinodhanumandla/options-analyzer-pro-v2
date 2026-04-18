@@ -244,7 +244,9 @@ def api_r_factor():
 def api_institutional_zones():
     from analysis_engine import get_zone_scan_status
     cache = get_zone_scan_status()
-    return jsonify({"success": True, "demand": cache["demand"], "supply": cache["supply"], "scan_time": cache["scan_time"], "scanning": cache["scanning"], "progress": {"done": cache["done"], "total": cache["total"]}})
+    db_dem = _safe_numpy(cache["demand"])
+    db_sup = _safe_numpy(cache["supply"])
+    return jsonify({"success": True, "demand": db_dem, "supply": db_sup, "scan_time": cache["scan_time"], "scanning": cache["scanning"], "progress": {"done": cache["done"], "total": cache["total"]}})
 
 @app.route("/api/institutional-zones/rescan", methods=["POST"])
 def api_zones_rescan():
@@ -256,7 +258,9 @@ def api_zones_rescan():
 def api_reversal_stocks():
     from analysis_engine import get_reversal_scan_status
     cache = get_reversal_scan_status()
-    return jsonify({"success": True, "rev5m": cache["rev5m"], "rev15m": cache["rev15m"], "scan_time": cache["scan_time"], "scanning": cache["scanning"], "progress": {"done": cache["done"], "total": cache["total"]}})
+    db_5m = _safe_numpy(cache["rev5m"])
+    db_15m = _safe_numpy(cache["rev15m"])
+    return jsonify({"success": True, "rev5m": db_5m, "rev15m": db_15m, "scan_time": cache["scan_time"], "scanning": cache["scanning"], "progress": {"done": cache["done"], "total": cache["total"]}})
 
 @app.route("/api/reversal-stocks/rescan", methods=["POST"])
 def api_reversal_rescan():
